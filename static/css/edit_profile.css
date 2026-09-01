@@ -1,0 +1,162 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #0b1118;
+    color: #ffffff;
+}
+
+.profile-page {
+    min-height: 100vh;
+    padding: 60px 20px;
+}
+
+.profile-container {
+    width: 100%;
+    max-width: 850px;
+    margin: auto;
+
+    background: #121b26;
+    border: 1px solid #263445;
+
+    border-radius: 18px;
+    padding: 45px;
+}
+
+
+/* HEADER */
+
+.profile-header {
+    margin-bottom: 40px;
+}
+
+.profile-header p {
+    color: #4da6d9;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin-bottom: 12px;
+}
+
+.profile-header h1 {
+    font-size: 34px;
+    margin-bottom: 12px;
+}
+
+.profile-header span {
+    color: #9aa8b8;
+    font-size: 16px;
+}
+
+
+/* FORM */
+
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+
+    padding: 15px;
+
+    border: 1px solid #2b3b4d;
+    border-radius: 10px;
+
+    background: #0d141d;
+    color: white;
+
+    font-size: 15px;
+
+    outline: none;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #4da6d9;
+}
+
+.form-group small {
+    margin-top: 8px;
+    color: #77889b;
+}
+
+
+/* BUTTONS */
+
+.profile-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: 10px;
+}
+
+.profile-actions button {
+    padding: 13px 25px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #4da6d9;
+    color: white;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.profile-actions button:hover {
+    opacity: 0.85;
+}
+
+.cancel-btn {
+    color: #aeb9c5;
+    text-decoration: none;
+
+    padding: 13px 20px;
+}
+
+.cancel-btn:hover {
+    color: white;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .profile-container {
+        padding: 28px 22px;
+    }
+
+    .profile-header h1 {
+        font-size: 26px;
+    }
+
+}

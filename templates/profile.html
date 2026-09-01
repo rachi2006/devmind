@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>My Profile | DevMind</title>
+
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/profile.css') }}">
+
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <a href="/dashboard" class="logo">
+            Dev<span>Mind</span>
+        </a>
+
+        <div class="nav-actions">
+
+            <a href="/dashboard">
+                ← Dashboard
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <main class="profile-container">
+
+
+        <!-- PROFILE HEADER -->
+
+        <section class="profile-header">
+
+            <div class="profile-avatar">
+
+                {{ user.name[0] | upper }}
+
+            </div>
+
+
+            <div class="profile-main-info">
+
+                <p class="small-heading">
+                    DEVELOPER PROFILE
+                </p>
+
+                <h1>
+                    {{ user.name }}
+                </h1>
+
+                <p class="profile-email">
+                    {{ user.email }}
+                </p>
+
+            </div>
+
+
+            <a
+                href="/edit-profile"
+                class="edit-profile-btn"
+            >
+                ✏️ Edit Profile
+            </a>
+
+        </section>
+
+
+<!-- PROFILE COMPLETION -->
+
+<section class="completion-card">
+
+    <div class="completion-header">
+
+        <div>
+
+            <p class="small-heading">
+                PROFILE STATUS
+            </p>
+
+            <h2>
+                Profile Completion
+            </h2>
+
+            <p class="completion-text">
+                Complete your profile to build a stronger
+                developer identity.
+            </p>
+
+        </div>
+
+
+        <div class="completion-percentage">
+
+            {{ completion_percentage }}%
+
+        </div>
+
+    </div>
+
+
+    <!-- Progress Bar -->
+
+    <div class="progress-bar">
+
+        <div
+           class="progress-fill"
+           data-progress="{{ completion_percentage }}"
+        ></div>
+
+    </div>
+
+
+    <div class="profile-strength-box">
+
+    <span>
+        PROFILE STRENGTH
+    </span>
+
+    <h3>
+        {{ profile_strength }}
+    </h3>
+
+</div>
+
+
+        <p class="completion-status">
+
+            {% if completion_percentage == 100 %}
+
+                🎉 Your developer profile is fully complete!
+
+            {% elif completion_percentage >= 70 %}
+
+                🚀 Great progress! You're close to completing your profile.
+
+            {% else %}
+
+                💡 Add more information to complete your developer profile.
+
+            {% endif %}
+
+        </p>
+
+</section>    
+
+
+<!-- DEVELOPER READINESS -->
+
+<section class="readiness-section">
+
+    <div class="readiness-header">
+
+        <div>
+
+            <p class="small-heading">
+                DEVELOPER INTELLIGENCE
+            </p>
+
+            <h2>
+                Developer Readiness Score
+            </h2>
+
+            <p class="readiness-description">
+                {{ readiness_data.message }}
+            </p>
+
+        </div>
+
+
+        <div class="readiness-score">
+
+    <div
+        class="score-ring"
+        data-score="{{ readiness_data.score }}"
+    >
+
+        <div class="score-ring-inner">
+
+            <strong>
+                {{ readiness_data.score }}
+            </strong>
+
+            <span>
+                / 100
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+    </div>
+
+
+    <!-- SCORE PROGRESS -->
+
+    <div class="readiness-progress">
+
+        <div
+            class="readiness-progress-fill"
+            data-readiness-score="{{ readiness_data.score }}"
+        ></div>
+
+    </div>
+
+
+    <!-- READINESS LEVEL -->
+
+    <div class="readiness-level">
+
+        <span>
+            Current Level
+        </span>
+
+        <h3>
+            {{ readiness_data.level }}
+        </h3>
+
+        <p class="score-status">
+            {{ readiness_data.score_status }}
+        </p>
+
+    </div>
+
+
+    <!-- SCORE BREAKDOWN -->
+
+    <div class="readiness-breakdown">
+
+        <div class="readiness-item">
+
+            <span>
+                Profile
+            </span>
+
+            <strong>
+                {{ readiness_data.profile_points }}/20
+            </strong>
+
+        </div>
+
+
+        <div class="readiness-item">
+
+            <span>
+                Skills
+            </span>
+
+            <strong>
+                {{ readiness_data.skill_points }}/25
+            </strong>
+
+        </div>
+
+
+        <div class="readiness-item">
+
+            <span>
+                GitHub Activity
+            </span>
+
+            <strong>
+                {{ readiness_data.activity_points }}/20
+            </strong>
+
+        </div>
+
+
+        <div class="readiness-item">
+
+            <span>
+                Projects
+            </span>
+
+            <strong>
+                {{ readiness_data.project_points }}/20
+            </strong>
+
+        </div>
+
+
+        <div class="readiness-item">
+
+            <span>
+                Developer Gaps
+            </span>
+
+            <strong>
+                {{ readiness_data.gap_points }}/15
+            </strong>
+
+        </div>
+
+    </div>
+
+    <!-- NEXT IMPROVEMENTS -->
+
+<div class="readiness-improvements">
+
+    <p class="small-heading">
+        YOUR NEXT IMPROVEMENTS
+    </p>
+
+    <h3>
+        How to improve your readiness score
+    </h3>
+
+
+    <div class="improvement-list">
+
+        {% if readiness_data.profile_points < 20 %}
+
+        <div class="improvement-item">
+
+            <div class="improvement-number">
+                01
+            </div>
+
+            <div>
+
+                <strong>
+                    Complete your developer profile
+                </strong>
+
+                <p>
+                    Add your missing profile information
+                    to strengthen your developer identity.
+                </p>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+
+        {% if readiness_data.activity_points < 20 %}
+
+        <div class="improvement-item">
+
+            <div class="improvement-number">
+                02
+            </div>
+
+            <div>
+
+                <strong>
+                    Increase GitHub activity
+                </strong>
+
+                <p>
+                    Contribute regularly and keep your
+                    repositories active.
+                </p>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+
+        {% if readiness_data.skill_points < 25 %}
+
+        <div class="improvement-item">
+
+            <div class="improvement-number">
+                03
+            </div>
+
+            <div>
+
+                <strong>
+                    Strengthen your technical skills
+                </strong>
+
+                <p>
+                    Focus on your weaker technologies and
+                    build projects using them.
+                </p>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+
+        {% if readiness_data.project_points < 20 %}
+
+        <div class="improvement-item">
+
+            <div class="improvement-number">
+                04
+            </div>
+
+            <div>
+
+                <strong>
+                    Build more projects
+                </strong>
+
+                <p>
+                    Create production-style projects that
+                    demonstrate your development abilities.
+                </p>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+
+        {% if readiness_data.gap_points < 15 %}
+
+        <div class="improvement-item">
+
+            <div class="improvement-number">
+                05
+            </div>
+
+            <div>
+
+                <strong>
+                    Work on your developer gaps
+                </strong>
+
+                <p>
+                    Focus on the weaknesses identified by
+                    DevMind and turn them into strengths.
+                </p>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+<!-- DEV MIND PRIORITY -->
+
+<div class="priority-action">
+
+    <p class="small-heading">
+        DEV MIND PRIORITY
+    </p>
+
+    <h3>
+        🎯 Your next best action
+    </h3>
+
+    <p>
+        {{ readiness_data.priority_action }}
+    </p>
+
+</div>
+
+
+
+</section>
+
+
+        <!-- PROFILE DETAILS -->
+
+        <section class="profile-grid">
+
+
+            <!-- BIO -->
+
+            <div class="profile-card">
+
+                <p class="small-heading">
+                    ABOUT ME
+                </p>
+
+                <h2>
+                    Bio
+                </h2>
+
+                <p class="profile-text">
+
+                    {{
+                    user.developer_profile.bio
+                    if user.developer_profile
+                    else "No bio added yet."
+                    }}
+
+                </p>
+
+            </div>
+
+
+            <!-- CAREER GOAL -->
+
+            <div class="profile-card">
+
+                <p class="small-heading">
+                    CAREER DIRECTION
+                </p>
+
+                <h2>
+                    Career Goal
+                </h2>
+
+                <p class="profile-text">
+
+                    {{
+                    user.developer_profile.career_goal
+                    if user.developer_profile
+                    else "No career goal added yet."
+                    }}
+
+                </p>
+
+            </div>
+
+
+            <!-- SKILLS -->
+
+            <div class="profile-card full-card">
+
+                <p class="small-heading">
+                    TECHNOLOGIES
+                </p>
+
+                <h2>
+                    Skills
+                </h2>
+
+
+                <div class="skills-list">
+
+                    {% if user.developer_profile
+                    and user.developer_profile.skills %}
+
+                        {% for skill in
+                        user.developer_profile.skills.split(",") %}
+
+                        <span class="skill-tag">
+
+                            {{ skill.strip() }}
+
+                        </span>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <p class="profile-text">
+                            No skills added yet.
+                        </p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            <!-- SKILL ANALYSIS -->
+
+<section class="skill-analysis-section">
+
+    <p class="small-heading">
+        DEVELOPER INTELLIGENCE
+    </p>
+
+    <h2>
+        Skill Analysis
+    </h2>
+
+
+    {% if skill_analysis %}
+
+        <div class="skill-analysis-list">
+
+            {% for item in skill_analysis %}
+
+                <div class="skill-analysis-card">
+
+                    <div class="skill-analysis-top">
+
+                        <div>
+
+                            <h3>
+                                {{ item.skill }}
+                            </h3>
+
+                            <span class="skill-level">
+                                {{ item.level }}
+                            </span>
+
+                        </div>
+
+
+                        <strong class="skill-score">
+                            {{ item.score }}%
+                        </strong>
+
+                    </div>
+
+
+                    <div class="skill-progress-bar">
+
+                        <div
+                            class="skill-progress-fill"
+                            data-skill-score="{{ item.score }}"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <p class="profile-text">
+            Add skills or connect GitHub to generate your skill analysis.
+        </p>
+
+    {% endif %}
+
+</section>
+
+
+<!-- PERSONALIZED LEARNING RECOMMENDATIONS -->
+
+<section class="recommendations-section">
+
+    <p class="small-heading">
+        AI LEARNING GUIDANCE
+    </p>
+
+    <h2>
+        Personalized Learning Recommendations
+    </h2>
+
+
+    {% if learning_recommendations %}
+
+        <div class="recommendations-list">
+
+            {% for recommendation in learning_recommendations %}
+
+                <div class="recommendation-card">
+
+                    <div
+                            class="recommendation-priority
+                            priority-{{ recommendation.priority | lower }}"
+                        >
+
+                            {{ recommendation.priority }}
+
+                            PRIORITY
+
+                        </div>
+
+
+                    <div class="recommendation-content">
+
+                        <h3>
+                            {{ recommendation.title }}
+                        </h3>
+
+
+                        <p>
+                            {{ recommendation.description }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+
+    {% else %}
+
+        <p class="profile-text">
+
+            Add more skills to receive personalized learning recommendations.
+
+        </p>
+
+    {% endif %}
+
+</section>
+
+<!-- DEVELOPER WEAKNESS DETECTION -->
+
+<section class="weakness-section">
+
+    <p class="small-heading">
+        DEVELOPER GAP ANALYSIS
+    </p>
+
+    <h2>
+        Areas That Need Attention
+    </h2>
+
+
+    {% if developer_weaknesses %}
+
+        <div class="weakness-list">
+
+            {% for weakness in developer_weaknesses %}
+
+                <div class="weakness-card">
+
+                    <div
+                        class="weakness-priority
+                        weakness-{{ weakness.priority | lower }}"
+                    >
+
+                        {{ weakness.priority }}
+
+                    </div>
+
+
+                    <div class="weakness-content">
+
+                        <h3>
+                            {{ weakness.title }}
+                        </h3>
+
+                        <p>
+                            {{ weakness.description }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+
+    {% else %}
+
+        <div class="no-weakness-card">
+
+            🎉 Great work! No major developer gaps were detected.
+
+        </div>
+
+    {% endif %}
+
+</section>
+
+
+        </section>
+
+
+        <!-- GITHUB PROFILE -->
+
+        {% if user.github %}
+
+        <section class="github-section">
+
+            <p class="small-heading">
+                GITHUB PROFILE
+            </p>
+
+            <h2>
+                Developer Activity
+            </h2>
+
+
+            <div class="github-profile-card">
+
+                <img
+                    src="{{ user.github.avatar_url }}"
+                    alt="GitHub Avatar"
+                >
+
+
+                <div>
+
+                    <h3>
+                        {{ user.github.github_name }}
+                    </h3>
+
+                    <p>
+                        @{{ user.github.github_username }}
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="https://github.com/{{ user.github.github_username }}"
+                    target="_blank"
+                    class="github-link"
+                >
+                    View GitHub ↗
+                </a>
+
+            </div>
+
+
+            <div class="github-stats">
+
+
+                <div>
+
+                    <span>
+                        Productivity
+                    </span>
+
+                    <strong>
+                        {{ user.github.productivity_score }}/100
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Repositories
+                    </span>
+
+                    <strong>
+                        {{ user.github.public_repos }}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Languages
+                    </span>
+
+                    <strong>
+                        {{ user.github.language_count }}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Activity
+                    </span>
+
+                    <strong>
+                        {{ user.github.activity_score }}/100
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+        {% endif %}
+
+
+    </main>
+    
+    <script>
+
+    const progressFill =
+        document.querySelector(".progress-fill");
+
+    if (progressFill) {
+
+        const percentage =
+            progressFill.dataset.progress;
+
+        progressFill.style.width =
+            percentage + "%";
+
+    }
+
+</script>
+
+<script>
+
+    const skillBars =
+        document.querySelectorAll(
+            ".skill-progress-fill"
+        );
+
+
+    skillBars.forEach(function (bar) {
+
+        const score =
+            bar.dataset.skillScore;
+
+        bar.style.width =
+            score + "%";
+
+    });
+
+</script>
+
+<script>
+
+    const readinessBar =
+        document.querySelector(
+            ".readiness-progress-fill"
+        );
+
+
+    if (readinessBar) {
+
+        const score =
+            readinessBar.dataset.readinessScore;
+
+        readinessBar.style.width =
+            score + "%";
+
+    }
+
+</script>
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const scoreRing =
+        document.querySelector(".score-ring");
+
+    const scoreElement =
+        document.querySelector(".score-ring-inner strong");
+
+
+    if (!scoreRing || !scoreElement) {
+        return;
+    }
+
+
+    const targetScore =
+        Number(scoreRing.dataset.score);
+
+
+    let currentScore = 0;
+
+
+    const animation =
+        setInterval(function () {
+
+            currentScore += 1;
+
+
+            if (currentScore >= targetScore) {
+
+                currentScore = targetScore;
+
+                clearInterval(animation);
+
+            }
+
+
+            const degrees =
+                (currentScore / 100) * 360;
+
+
+            scoreRing.style.background =
+                `conic-gradient(
+                    #38bdf8 0deg,
+                    #38bdf8 ${degrees}deg,
+                    #263445 ${degrees}deg,
+                    #263445 360deg
+                )`;
+
+
+            scoreElement.textContent =
+                currentScore;
+
+
+        }, 15);
+
+});
+
+</script>
+
+</body>
+
+</html>

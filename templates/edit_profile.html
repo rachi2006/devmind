@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Profile | DevMind</title>
+
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/edit_profile.css') }}">
+
+</head>
+
+
+<body>
+
+    <main class="profile-page">
+
+        <div class="profile-container">
+
+            <div class="profile-header">
+
+                <p>
+                    DEVELOPER PROFILE
+                </p>
+
+                <h1>
+                    Build Your Developer Identity
+                </h1>
+
+                <span>
+                    Tell DevMind about your skills and career goals.
+                </span>
+
+            </div>
+
+
+            <form method="POST" class="profile-form">
+
+
+                <!-- Bio -->
+
+                <div class="form-group">
+
+                    <label>
+                        Developer Bio
+                    </label>
+
+                    <textarea
+                        name="bio"
+                        placeholder="Example: AI and Data Science student passionate about Python and Full Stack Development."
+                        rows="4"
+                    >{{ user.get('developer_profile', {}).get('bio', '') }}</textarea>
+
+                </div>
+
+
+                <!-- Career Goal -->
+
+                <div class="form-group">
+
+                    <label>
+                        Career Goal
+                    </label>
+
+                    <input
+                        type="text"
+                        name="career_goal"
+                        placeholder="Example: Become an AI Engineer"
+                        value="{{ user.get('developer_profile', {}).get('career_goal', '') }}"
+                    >
+
+                </div>
+
+
+                <!-- Skills -->
+
+                <div class="form-group">
+
+                    <label>
+                        Skills & Technologies
+                    </label>
+
+                    <input
+                        type="text"
+                        name="skills"
+                        placeholder="Example: Python, Flask, MongoDB, JavaScript"
+                        value="{{ user.get('developer_profile', {}).get('skills', '') }}"
+                    >
+
+                    <small>
+                        Separate your skills with commas.
+                    </small>
+
+                </div>
+
+
+                <!-- Buttons -->
+
+                <div class="profile-actions">
+
+                    <a href="/dashboard" class="cancel-btn">
+                        Cancel
+                    </a>
+
+                    <button type="submit">
+                        Save Profile
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>

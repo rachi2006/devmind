@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | DevMind</title>
+
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            Dev<span>Mind</span>
+        </div>
+
+        <div class="nav-right">
+
+    <span class="welcome-text">
+        Welcome, {{ user_name }}
+    </span>
+
+
+    <div class="profile-menu">
+
+        <button
+            class="profile-menu-btn"
+            id="profileMenuBtn"
+            type="button"
+        >
+
+            <span class="navbar-avatar">
+                {{ user_name[0] | upper }}
+            </span>
+
+            <span class="profile-arrow">
+                ▼
+            </span>
+
+        </button>
+
+
+        <div
+            class="profile-dropdown"
+            id="profileDropdown"
+        >
+
+            <div class="dropdown-user-info">
+
+                <div class="dropdown-avatar">
+                    {{ user_name[0] | upper }}
+                </div>
+
+                <div>
+
+                    <strong>
+                        {{ user_name }}
+                    </strong>
+
+                    <small>
+                        Developer Profile
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="dropdown-line"></div>
+
+
+            <a href="/edit-profile">
+                ✏️ Edit Profile
+            </a>
+
+
+            <a href="/profile">
+                👤 My Profile
+            </a>
+
+
+            <div class="dropdown-line"></div>
+
+
+            <a
+                href="/logout"
+                class="logout-dropdown"
+            >
+                🚪 Logout
+            </a>
+
+        </div>
+
+    </div>
+    </div>
+
+    </nav>
+
+
+    <!-- Main Dashboard -->
+
+    <main class="dashboard">
+
+        <!-- Heading -->
+
+        <div class="dashboard-heading">
+
+            <p>
+                DEVELOPER INTELLIGENCE
+            </p>
+
+            <h1>
+                Welcome back, {{ user_name }} 👋
+            </h1>
+
+            <span>
+                Analyze your development journey.
+            </span>
+
+        </div>
+
+        <!-- DEVELOPER PROFILE -->
+
+
+
+
+        <!-- GitHub Connection -->
+
+        <section class="github-connect">
+
+            <div>
+
+                <p class="small-heading">
+                    GITHUB INTEGRATION
+                </p>
+
+                <h2>
+                    Connect Your GitHub Profile
+                </h2>
+
+                <p>
+                    Enter your GitHub username and DevMind
+                    will analyze your public developer activity.
+                </p>
+
+            </div>
+
+
+            <form action="/connect-github" method="POST">
+
+                <input
+                    type="text"
+                    name="github_username"
+                    placeholder="Enter GitHub username"
+                    required
+                >
+
+                <button type="submit">
+                    Analyze GitHub
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- Main Stats -->
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+
+                <p>Productivity Score</p>
+
+                <h2>
+                    {{ github_data.productivity_score
+                    if github_data else "--" }}
+                </h2>
+
+                <span>
+                    {{ "Calculated from activity"
+                    if github_data else "Connect GitHub" }}
+                </span>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <p>Public Repositories</p>
+
+                <h2>
+                    {{ github_data.public_repos
+                    if github_data else "0" }}
+                </h2>
+
+                <span>
+                    GitHub projects
+                </span>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <p>Followers</p>
+
+                <h2>
+                    {{ github_data.followers
+                    if github_data else "0" }}
+                </h2>
+
+                <span>
+                    Developer network
+                </span>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <p>Languages</p>
+
+                <h2>
+                    {{ github_data.language_count
+                    if github_data else "0" }}
+                </h2>
+
+                <span>
+                    Technologies used
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- All GitHub Data -->
+
+        {% if github_data %}
+
+
+        <!-- Analytics Engine -->
+
+        <section class="analytics-section">
+
+            <p class="small-heading">
+                ANALYTICS ENGINE
+            </p>
+
+            <h2>
+                Productivity Breakdown
+            </h2>
+
+            <div class="analytics-grid">
+
+                <div class="analytics-card">
+
+                    <p>
+                        Repository Activity
+                    </p>
+
+                    <h3>
+                        {{ github_data.repository_score }}/30
+                    </h3>
+
+                </div>
+
+
+                <div class="analytics-card">
+
+                    <p>
+                        Technology Diversity
+                    </p>
+
+                    <h3>
+                        {{ github_data.technology_score }}/25
+                    </h3>
+
+                </div>
+
+
+                <div class="analytics-card">
+
+                    <p>
+                        Community Impact
+                    </p>
+
+                    <h3>
+                        {{ github_data.community_score }}/15
+                    </h3>
+
+                </div>
+
+
+                <div class="analytics-card">
+
+                    <p>
+                        Project Impact
+                    </p>
+
+                    <h3>
+                        {{ github_data.project_impact_score }}/30
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </section>
+        
+
+        <!-- Activity Engine -->
+
+<section class="activity-section">
+
+    <p class="small-heading">
+        GITHUB ACTIVITY
+    </p>
+
+    <h2>
+        Recent Developer Activity
+    </h2>
+
+    <div class="activity-grid">
+
+        <div class="activity-card">
+
+            <p>
+                Recent Commits
+            </p>
+
+            <h3>
+                {{ github_data.recent_commits }}
+            </h3>
+
+        </div>
+
+
+        <div class="activity-card">
+
+            <p>
+                Active Days
+            </p>
+
+            <h3>
+                {{ github_data.active_days }}
+            </h3>
+
+        </div>
+
+
+        <div class="activity-card">
+
+            <p>
+                Active Repositories
+            </p>
+
+            <h3>
+                {{ github_data.active_repositories }}
+            </h3>
+
+        </div>
+
+
+        <div class="activity-card">
+
+            <p>
+                Activity Score
+            </p>
+
+            <h3>
+                {{ github_data.activity_score }}/100
+            </h3>
+
+        </div>
+
+    </div>
+
+
+    <div class="consistency-box">
+
+        <p>
+            Development Consistency
+        </p>
+
+        <h3>
+            {{ github_data.consistency }}
+        </h3>
+
+    </div>
+
+</section>
+
+        <!-- GitHub Profile -->
+
+        <section class="github-profile">
+
+            <img
+                src="{{ github_data.avatar_url }}"
+                alt="GitHub Profile"
+            >
+
+            <div>
+
+                <p class="small-heading">
+                    CONNECTED GITHUB ACCOUNT
+                </p>
+
+                <h2>
+                    {{ github_data.github_name }}
+                </h2>
+
+                <p>
+                    @{{ github_data.github_username }}
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Languages -->
+
+        <section class="languages-section">
+
+            <p class="small-heading">
+                TECHNOLOGY ANALYSIS
+            </p>
+
+            <h2>
+                Programming Languages
+            </h2>
+
+            <div class="language-list">
+
+                {% for language in github_data.languages %}
+
+                <div class="language-item">
+
+                    <span>
+                        {{ language }}
+                    </span>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+
+        <!-- Developer AI Insight -->
+
+        {% if github_data.developer_insight %}
+
+        <section class="developer-insight">
+
+            <div class="insight-header">
+
+                <div class="ai-icon">
+                    AI
+                </div>
+
+                <div>
+
+                    <p class="small-heading">
+                        DEVMIND INTELLIGENCE
+                    </p>
+
+                    <h2>
+                        Developer Insight
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="developer-level">
+
+                <span>
+                    Current Level
+                </span>
+
+                <h3>
+                    {{ github_data.developer_insight.developer_level }}
+                </h3>
+
+            </div>
+
+
+            <div class="insight-list">
+
+                {% for insight in github_data.developer_insight.insights %}
+
+                <div class="insight-item">
+
+                    <span class="insight-check">
+                        ✓
+                    </span>
+
+                    <p>
+                        {{ insight }}
+                    </p>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <div class="recommendation">
+
+                <p class="small-heading">
+                    RECOMMENDED NEXT STEP
+                </p>
+
+                <p>
+                    {{ github_data.developer_insight.recommendation }}
+                </p>
+
+            </div>
+
+        </section>
+           <!-- Growth Roadmap -->
+
+{% if github_data.growth_roadmap %}
+
+<section class="growth-roadmap">
+
+    <p class="small-heading">
+        DEVELOPER GROWTH PLAN
+    </p>
+
+    <h2>
+        Your Personalized Roadmap
+    </h2>
+
+
+    <div class="priority-list">
+
+        {% for priority in github_data.growth_roadmap.priorities %}
+
+        <div class="priority-card">
+
+            <div class="priority-number">
+                {{ loop.index }}
+            </div>
+
+            <div>
+
+                <h3>
+                    {{ priority.title }}
+                </h3>
+
+                <p>
+                    {{ priority.description }}
+                </p>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    <div class="roadmap-bottom-grid">
+
+
+        <div class="roadmap-card">
+
+            <p class="small-heading">
+                RECOMMENDED NEXT PROJECT
+            </p>
+
+            <p>
+                {{ github_data.growth_roadmap.next_project }}
+            </p>
+
+        </div>
+
+
+        <div class="roadmap-card">
+
+            <p class="small-heading">
+                RECOMMENDED NEXT SKILL
+            </p>
+
+            <p>
+                {{ github_data.growth_roadmap.next_skill }}
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+{% endif %}
+
+
+        {% endif %}
+
+
+        <!-- End GitHub Data -->
+
+        {% endif %}
+
+
+        
+
+
+    <!-- AI DEVELOPER COACH -->
+
+{% if github_data and github_data.ai_coach_history %}
+
+<div class="history-header">
+
+    <div>
+
+        <p class="small-heading">
+            AI CONVERSATION HISTORY
+        </p>
+
+        <h2>
+            Your Previous Conversations
+        </h2>
+
+    </div>
+
+
+    <form action="/clear-ai-history" method="POST">
+
+        <button
+            type="submit"
+            class="clear-history-btn"
+            onclick="return confirm('Are you sure you want to delete all AI conversation history?')"
+        >
+            🗑️ Clear History
+        </button>
+
+    </form>
+
+</div>
+
+{% endif %}    
+
+<section class="ai-coach-section">
+
+    <p class="small-heading">
+        AI DEVELOPER COACH
+    </p>
+
+    <h2>
+        Ask DevMind
+    </h2>
+
+    <p class="section-description">
+        Ask questions about your skills, projects, GitHub profile,
+        career growth and developer journey.
+    </p>
+
+
+    <form action="/ai-coach" method="POST" class="ai-coach-form">
+
+        <input
+            type="text"
+            name="question"
+            placeholder="Ask something like: What should I learn next?"
+            required
+        >
+
+        <button type="submit">
+            Ask DevMind
+        </button>
+
+    </form>
+
+
+    {% if github_data and github_data.ai_coach_history %}
+
+    <div class="ai-history">
+
+    {% for conversation in github_data.ai_coach_history | reverse %}
+
+    <div class="ai-response-card">
+
+        <p class="conversation-time">
+            {{ conversation.created_at }}
+        </p>
+
+
+        <div class="user-question">
+
+            <strong>
+                You asked:
+            </strong>
+
+            <p>
+                {{ conversation.question }}
+            </p>
+
+        </div>
+
+
+        <div class="coach-answer">
+
+            <strong class="ai-label">
+                🤖 DevMind says:
+            </strong>
+
+            <div class="ai-response-text">
+                {{ conversation.answer | replace('\n', '<br>') | safe }}
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+{% endif %}
+
+</section>    
+
+
+    </main>
+
+
+    <script>
+
+    const profileMenuBtn =
+        document.getElementById("profileMenuBtn");
+
+    const profileDropdown =
+        document.getElementById("profileDropdown");
+
+
+    profileMenuBtn.addEventListener(
+        "click",
+        function () {
+
+            profileDropdown.classList.toggle(
+                "active"
+            );
+
+        }
+    );
+
+
+    document.addEventListener(
+        "click",
+        function (event) {
+
+            if (
+                !profileMenuBtn.contains(event.target) &&
+                !profileDropdown.contains(event.target)
+            ) {
+
+                profileDropdown.classList.remove(
+                    "active"
+                );
+
+            }
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>
